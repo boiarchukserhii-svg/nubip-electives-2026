@@ -1,1 +1,25 @@
-{"id":"./","name":"Вибір освітніх компонентів 2026","short_name":"Вибір дисциплін","lang":"uk","start_url":"./","scope":"./","display":"standalone","background_color":"#f1f5fb","theme_color":"#195bb5","icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}]}
+{
+  "id": "./",
+  "name": "Вибір освітніх компонентів 2026",
+  "short_name": "Вибір дисциплін",
+  "lang": "uk",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f1f5fb",
+  "theme_color": "#195bb5",
+  "icons": [
+    {
+      "sizes": "192x192",
+      "src": "icon-192.png",
+      "purpose": "any",
+      "type": "image/png"
+    },
+    {
+      "sizes": "512x512",
+      "src": "icon-512.png",
+      "purpose": "any",
+      "type": "image/png"
+    }
+  ]
+}
