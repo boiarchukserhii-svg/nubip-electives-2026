@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="uk">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#195bb5"><title>Вибір дисциплін 2026 · НУБіП України</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f1f5fb;color:#253c59;font:1rem/1.55 system-ui,sans-serif}header{background:#195bb5;color:white;padding:2rem max(5vw,calc((100vw - 880px)/2))}header p{color:#eaf2ff}h1{line-height:1.15}main{max-width:920px;margin:auto;padding:1.5rem}section,form{background:white;border:1px solid #dfe4eb;border-radius:14px;padding:1.25rem;margin-bottom:1rem}label{display:block;margin:.6rem 0}select,input:not([type=checkbox]),button{font:inherit;padding:.55rem;border:1px solid #8397b0;border-radius:6px}select,input:not([type=checkbox]){width:100%;display:block}button{background:#195bb5;color:white;cursor:pointer}.choice{padding:.45rem;border-bottom:1px solid #e7edf4}.choice input{margin-right:.6rem}pre{white-space:pre-wrap;font:inherit}
+.brand{display:flex;align-items:center;gap:12px;font-weight:650}.brand img{object-fit:contain}section,form{box-shadow:0 4px 18px #11407e0b}button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #3279dc;outline-offset:3px}</style>
+<header><div class="brand"><img src="nubip-logo.png" width="44" height="57" alt="Логотип НУБіП України"><span>Національний університет біоресурсів<br>і природокористування України</span></div><p>НУБіП України · Аспірантура · 2026</p><h1>Вибір освітніх компонентів</h1><p>Оберіть факультет або ННІ та свою освітньо-наукову програму.</p></header>
+<main>
+<section><label>Факультет або ННІ<select id="faculty"></select></label><label>Освітньо-наукова програма<select id="program" disabled></select></label></section>
+<section id="selection" hidden><h2>Вибіркові дисципліни</h2><p id="count" role="status"></p><div id="courses"></div></section>
+<form id="draft" hidden><h2>Чернетка заяви</h2><p>Перевірте свій вибір і збережіть чернетку на пристрої. Подання заяви в цій версії недоступне.</p><label>ПІБ<input id="person" required autocomplete="name"></label><button>Завантажити чернетку</button></form>
+</main>
+<script src="catalog.js"></script>
+<script>
+const byId=id=>document.getElementById(id);
+const faculty=byId('faculty'),program=byId('program'),courses=byId('courses'),draft=byId('draft');
+const options=(element,placeholder,values)=>element.replaceChildren(new Option(placeholder,''),...values.map(([value,label])=>new Option(label,value)));
+options(faculty,'Оберіть факультет або ННІ',[...new Set(catalog.map(p=>p.faculty))].map(x=>[x,x]));
+faculty.onchange=()=>{
+  options(program,'Оберіть ОНП',catalog.flatMap((p,i)=>p.faculty===faculty.value?[[i,p.title]]:[]));
+  program.disabled=!faculty.value;
+  render();
+};
+function selected(){return [...courses.querySelectorAll('input:checked')].map(input=>input.value);}
+function update(){const n=selected().length;byId('count').textContent='Обрано дисциплін — '+n;draft.hidden=n===0;}
+function render(){
+  courses.replaceChildren();
+  byId('selection').hidden=program.value==='';
+  if(program.value!==''){
+    for(const title of catalog[Number(program.value)].courses){
+      const label=document.createElement('label'),input=document.createElement('input');
+      label.className='choice';
+      input.type='checkbox';input.value=title;input.onchange=update;
+      label.append(input,document.createTextNode(title));courses.append(label);
+    }
+  }
+  update();
+}
+program.onchange=render;
+draft.onsubmit=event=>{
+  event.preventDefault();
+  const name=byId('person').value.trim();
+  if(!name){byId('person').focus();return;}
+  const text=['Чернетка вибору освітніх компонентів 2026',name,faculty.value,catalog[Number(program.value)].title,'',...selected().map((x,i)=>(i+1)+'. '+x)].join('\n');
+  const url=URL.createObjectURL(new Blob([text],{type:'text/plain;charset=utf-8'}));
+  const link=document.createElement('a');link.href=url;link.download='vybir-dystsyplin-2026.txt';link.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+};
+</script>
+</html>
+
