@@ -40,7 +40,7 @@ faculty.onchange=()=>{
   render();
 };
 function selected(){return [...courses.querySelectorAll('input:checked')].map(input=>input.value);}
-function update(){const n=selected().length;byId('count').textContent='Обрано дисциплін — '+n;byId('next').disabled=step===1&&n===0;}
+function update(){const n=selected().length;byId('count').textContent='Обрано дисциплін – '+n;byId('next').disabled=step===1&&n===0;}
 function render(){
   courses.replaceChildren();
 
