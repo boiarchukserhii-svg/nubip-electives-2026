@@ -94,7 +94,7 @@ submitButton.onclick=()=>{
     byId('back').disabled=ok||!retry;
   }
   function receive(event){
-    if(!/^https:\/\/(?:[a-z0-9-]+\.)?script\.googleusercontent\.com$/.test(event.origin)
+    if(!/^https:\/\/(?:[a-z0-9-]+[.-])?script\.googleusercontent\.com$/.test(event.origin)
         &&event.origin!=='https://script.google.com')return;
     const result=event.data;
     if(result?.type!=='nubip-electives-result'||result.requestId!==requestId||typeof result.ok!=='boolean')return;
@@ -119,6 +119,7 @@ wizard.onsubmit=event=>{
 steps[0].setAttribute('aria-current','step');
 </script>
 </html>
+
 
 
 
