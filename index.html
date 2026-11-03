@@ -114,11 +114,27 @@ wizard.onsubmit=event=>{
   if(!selected().length)return;
   if(step===1){byId('summary').textContent=summary();showStep(2);return;}
   byId('pdf-content').textContent=summary();
+  if(submissionStatus.textContent==='Подання заяви…'){
+    window.print();
+    return;
+  }
+  window.addEventListener('afterprint',()=>{
+    wizard.reset();
+    faculty.onchange();
+    byId('summary').textContent='';
+    byId('pdf-content').textContent='';
+    submissionStatus.textContent='';
+    submitButton.disabled=false;
+    byId('back').disabled=false;
+    showStep(0);
+    window.scrollTo(0,0);
+  },{once:true});
   window.print();
 };
 steps[0].setAttribute('aria-current','step');
 </script>
 </html>
+
 
 
 
