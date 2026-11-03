@@ -91,7 +91,7 @@ submitButton.onclick=()=>{
     frame.remove();post.remove();
     submissionStatus.textContent=message;
     submitButton.disabled=ok||!retry;
-    byId('back').disabled=ok||!retry;
+    byId('back').disabled=!ok&&!retry;
   }
   function receive(event){
     if(!/^https:\/\/(?:[a-z0-9-]+[.-])?script\.googleusercontent\.com$/.test(event.origin)
@@ -120,6 +120,7 @@ byId('preview-close').onclick=()=>byId('preview').close();
 steps[0].setAttribute('aria-current','step');
 </script>
 </html>
+
 
 
 
