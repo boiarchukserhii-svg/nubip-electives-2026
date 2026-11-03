@@ -108,7 +108,21 @@ submitButton.onclick=()=>{
 };function summary(){
   return [byId('person').value.trim(),byId('email').value,byId('phone').value,byId('mode').value,faculty.value,catalog[Number(program.value)].title,'',...selected().map((x,i)=>(i+1)+'. '+x)].join('\n');
 }
-byId('back').onclick=()=>showStep(step-1);
+byId('back').onclick=()=>{
+  if(!submissionStatus.classList.contains('submitted')){
+    showStep(step-1);
+    return;
+  }
+  wizard.reset();
+  faculty.onchange();
+  byId('summary').textContent='';
+  byId('preview-content').textContent='';
+  submissionStatus.textContent='';
+  submissionStatus.classList.remove('submitted');
+  submitButton.disabled=false;
+  showStep(0);
+  window.scrollTo(0,0);
+};
 wizard.onsubmit=event=>{
   event.preventDefault();
   if(step===0){if(!byId('person').value.trim()||program.value==='')return;showStep(1);return;}
@@ -121,6 +135,7 @@ byId('preview-close').onclick=()=>byId('preview').close();
 steps[0].setAttribute('aria-current','step');
 </script>
 </html>
+
 
 
 
