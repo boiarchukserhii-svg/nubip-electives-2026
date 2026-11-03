@@ -19,7 +19,7 @@ header{max-width:920px;margin:auto;padding:24px 1.5rem 0;background:none;color:#
 <label>Прізвище, ім’я та по батькові<input id="person" required autocomplete="name" placeholder="Вкажіть повне ім’я"></label>
 <label>Електронна пошта<input id="email" type="email" required autocomplete="email" placeholder="name@example.com"></label>
 <label>Телефон<input id="phone" type="tel" required autocomplete="tel" placeholder="+380"></label>
-<label class="wide">Форма навчання<select id="mode" required><option value="">Виберіть зі списку</option><option>Денна</option><option>Вечірня</option><option>Заочна</option></select></label>
+<label class="wide">Форма навчання<select id="mode" required><option value="">Виберіть зі списку</option><option>Денна</option><option>Заочна</option></select></label>
 <label class="wide">Факультет або ННІ<select id="faculty" required></select></label>
 <label class="wide">Освітньо-наукова програма<select id="program" required disabled><option value="">Спочатку виберіть факультет або ННІ</option></select></label>
 </div>
@@ -83,6 +83,7 @@ wizard.onsubmit=event=>{
 steps[0].setAttribute('aria-current','step');
 </script>
 </html>
+
 
 
 
