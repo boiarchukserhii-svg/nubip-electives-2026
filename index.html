@@ -61,32 +61,6 @@ header{max-width:920px;margin:auto;padding:24px 1.5rem 0;background:none;color:#
 <div id="review" hidden><h2>Перевірка заяви</h2><pre id="summary"></pre><button id="submit-form" type="button">Подати заяву</button><p id="submission-status" role="status"></p><p>Заява подається безпосередньо із застосунку.</p></div>
 <div class="actions"><button type="button" id="back" hidden>Назад</button><button type="submit" id="next">Далі</button></div>
 </form>
-<button type="button" id="install-app" hidden>Встановити застосунок</button>
-<script>
-{
-  const button = document.getElementById('install-app');
-  let installPrompt;
-
-  window.addEventListener('beforeinstallprompt', event => {
-    event.preventDefault();
-    installPrompt = event;
-    button.hidden = false;
-  });
-
-  button.addEventListener('click', async () => {
-    if (!installPrompt) return;
-    const prompt = installPrompt;
-    installPrompt = undefined;
-    button.hidden = true;
-    await prompt.prompt().catch(() => {});
-  });
-
-  window.addEventListener('appinstalled', () => {
-    installPrompt = undefined;
-    button.hidden = true;
-  });
-}
-</script>
 <footer class="site-footer" aria-label="Авторство та офіційна сторінка відділу">
 <div class="footer-panel footer-owner"><span>© Сергій БОЯРЧУК, <span style="font-weight:400">2026</span></span></div>
   <a class="footer-panel footer-link" href="https://nubip.edu.ua/department/viddil-aspirantury-doktorantury-ta-atestatsiyi-naukovykh-kadriv" target="_blank" rel="noopener noreferrer" aria-label="Офіційна сторінка відділу аспірантури, докторантури та атестації наукових кадрів">
